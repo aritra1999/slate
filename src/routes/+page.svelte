@@ -22,7 +22,7 @@
 			<img
 				src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGs5bTk2YWJ2dzliYXJyeGF6cjkycjk3NXEwZ2RpMjd1NGpwMzVvMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/W6A8UMnaJj8YbM9CQw/giphy.gif"
 				class="h-40 w-40"
-				alt=""
+				alt="Animated coming soon illustration"
 			/>
 		</div>
 	</div>
