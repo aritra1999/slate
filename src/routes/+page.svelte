@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Github } from 'lucide-svelte';
 	import Logo from '$lib/components/ui/logo/logo.svelte';
 </script>
 
