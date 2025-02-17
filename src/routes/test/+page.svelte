@@ -8,7 +8,7 @@
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*'
+				'access-control-allow-origin': '*'
 			}
 		})
 			.then((response) => {
