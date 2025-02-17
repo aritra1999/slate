@@ -7,7 +7,8 @@
 		await fetch(`${host}${route}`, {
 			method: 'GET',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*'
 			}
 		})
 			.then((response) => {
