@@ -1,7 +1,7 @@
 <script lang="ts">
 	let message = $state('');
-	let host = $state('http://localhost:11434');
-	let route = $state('/api/chat');
+	let host = $state('http://127.0.0.1:11434');
+	let route = $state('/api/version');
 
 	async function chat() {
 		await fetch(`${host}${route}`, {
