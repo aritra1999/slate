@@ -1,38 +1,25 @@
 <script lang="ts">
-	let message = $state('');
-	let host = $state('http://127.0.0.1:11434');
-	let route = $state('/api/version');
+	import OpenAI from 'openai';
 
 	async function chat() {
-		await fetch(`${host}${route}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				'access-control-allow-origin': '*'
-			}
-		})
-			.then((response) => {
-				if (response.ok) {
-					message = 'Message sent successfully';
-				} else {
-					message = 'Error sending message';
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-				message = 'Error sending message';
-			});
+		const openai = new OpenAI({
+			baseURL: 'http://localhost:11434/v1/',
+			dangerouslyAllowBrowser: true,
+			apiKey: 'ollama'
+		});
+
+		const chatCompletion = await openai.chat.completions.create({
+			messages: [{ role: 'user', content: 'Say this is a test' }],
+			model: 'deepseek-r1:1.5b'
+		});
+
+		console.log(chatCompletion);
 	}
 </script>
 
 <div class="flex h-screen items-center justify-center px-4">
 	<div class=" flex flex-col bg-secondary p-4">
 		<form action="" onsubmit={chat}>
-			{message}
-			<div>
-				<input type="text" bind:value={host} />
-				<input type="text" bind:value={route} />
-			</div>
 			<button type="submit">send</button>
 		</form>
 	</div>
