@@ -1,20 +1,28 @@
 <script lang="ts">
-	import { SendHorizontal } from 'lucide-svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { Paperclip, Send } from 'lucide-svelte';
 </script>
 
-<div class="flex h-screen w-full flex-col">
-	<div class="container mx-auto h-screen overflow-hidden py-2">
-		<div class="h-[5%]">header</div>
-		<div class="h-[85%]">chat section</div>
-		<div class="h-[10%] border-2 px-1 sm:px-4">
-			<form action="" class="flex h-full items-center">
+<div class="flex h-screen w-full">
+	<div class="container mx-auto flex h-full flex-col">
+		<div class="flex-none py-4">header</div>
+		<div class="flex-1 overflow-y-auto">chat section</div>
+		<div class="flex-none py-4">
+			<form class="rounded-3xl border-2 bg-white p-2">
 				<textarea
-					class="h-full w-full resize-none overflow-y-auto bg-transparent px-2 py-2.5 placeholder:text-muted-foreground focus:outline-0"
+					class="w-full resize-none overflow-y-auto bg-transparent px-3 py-2.5 placeholder:text-muted-foreground focus:outline-0"
 					placeholder="What's on your mind?"
+					rows="3"
 				></textarea>
-				<button class="mr-2 flex items-center justify-center rounded-sm bg-foreground p-2.5">
-					<SendHorizontal class="size-5 text-white" />
-				</button>
+				<div class="flex items-start justify-between">
+					<Button class="rounded-2xl" disabled>
+						<span>Attach</span>
+						<Paperclip class="ml-2" />
+					</Button>
+					<Button class="rounded-2xl" size="icon">
+						<Send />
+					</Button>
+				</div>
 			</form>
 		</div>
 	</div>
