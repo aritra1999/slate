@@ -9,8 +9,8 @@ export async function getOllamaModels(): Promise<Result<OllamaModel[]>> {
 			.get(`${OLLAMA_API_URL}/api/tags`, {
 				retry: 0,
 				headers: {
-					accept: 'application/json',
 					'access-control-allow-origin': '*',
+					'access-control-allow-methods': 'GET,POST,OPTIONS,DELETE,PUT',
 					'cache-control': 'no-cache',
 					'content-type': 'application/json'
 				},
