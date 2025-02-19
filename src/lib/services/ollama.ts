@@ -9,8 +9,12 @@ export async function getOllamaModels(): Promise<Result<OllamaModel[]>> {
 			.get(`${OLLAMA_API_URL}/api/tags`, {
 				retry: 0,
 				headers: {
-					'Access-Control-Allow-Origin': '*'
-				}
+					accept: 'application/json',
+					'access-control-allow-origin': '*',
+					'cache-control': 'no-cache',
+					'content-type': 'application/json'
+				},
+				referrerPolicy: 'strict-origin-when-cross-origin'
 			})
 			.json<{ models: OllamaModel[] }>();
 		return ok(modelsResponse.models);
