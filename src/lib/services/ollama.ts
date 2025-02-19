@@ -11,7 +11,6 @@ export async function getOllamaModels(): Promise<Result<OllamaModel[]>> {
 				headers: {
 					'access-control-allow-origin': '*',
 					'access-control-allow-methods': 'GET,POST,OPTIONS,DELETE,PUT',
-					'cache-control': 'no-cache',
 					'content-type': 'application/json'
 				},
 				referrerPolicy: 'strict-origin-when-cross-origin'
