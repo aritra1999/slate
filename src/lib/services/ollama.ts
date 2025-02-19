@@ -5,7 +5,9 @@ import ky from 'ky';
 export async function getOllamaModels(): Promise<Result<OllamaModel[]>> {
 	try {
 		const modelsResponse = await ky
-			.get(`http://localhost:11434/api/tags`)
+			.get(`http://localhost:11434/api/tags`, {
+				retry: 0
+			})
 			.json<{ models: OllamaModel[] }>();
 		return ok(modelsResponse.models);
 	} catch (error) {
