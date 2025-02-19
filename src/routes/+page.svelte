@@ -4,13 +4,12 @@
 
 <div class="flex h-screen items-center justify-center px-4">
 	<div>
-		<div class="bg-secondary mb-4 flex flex-col-reverse border p-4 sm:flex-row">
+		<div class="mb-4 flex flex-col-reverse border bg-secondary p-4 sm:flex-row">
 			<div class="pr-8">
-				<h1 class="mb-4 flex items-center text-xl font-semibold">
+				<div class="mb-4">
 					<Logo />
-					Slate
-				</h1>
-				<p class="text-muted-foreground mb-4">
+				</div>
+				<p class="mb-4 text-muted-foreground">
 					Open source chat UI for local,
 					<br />
 					self-hosted and cloud llms.
