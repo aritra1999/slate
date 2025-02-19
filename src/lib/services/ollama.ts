@@ -7,7 +7,10 @@ export async function getOllamaModels(): Promise<Result<OllamaModel[]>> {
 	try {
 		const modelsResponse = await ky
 			.get(`${OLLAMA_API_URL}/api/tags`, {
-				retry: 0
+				retry: 0,
+				headers: {
+					'Access-Control-Allow-Origin': '*'
+				}
 			})
 			.json<{ models: OllamaModel[] }>();
 		return ok(modelsResponse.models);
