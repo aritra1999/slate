@@ -6,6 +6,7 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Alert from '$lib/components/ui/alert/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
+	import Loading from '$lib/components/ui/loading/loading.svelte';
 	import { getOllamaModels } from '$lib/services/ollama';
 
 	let loadingModels = $state(false);
@@ -45,7 +46,7 @@
 		const modelsResults = await getOllamaModels();
 		if (!modelsResults.success) {
 			errorLoadingModels =
-				'Error loading models, make sure if you have ollama configured properly!';
+				'Error loading local ollama models, make sure if you have ollama configured properly!';
 			return;
 		}
 
@@ -91,7 +92,9 @@
 				</Select.Root>
 			</div>
 			{#if loadingModels}
-				Loading models...
+				<div class="w-full py-4">
+					<Loading message={'Loading models'} />
+				</div>
 			{:else if errorLoadingModels}
 				<Alert.Root variant="destructive">
 					<CircleAlert class="size-4" />
