@@ -84,4 +84,8 @@
 		font-weight: 500;
 		@apply bg-background text-sm text-foreground;
 	}
+
+	a {
+		@apply underline;
+	}
 }
