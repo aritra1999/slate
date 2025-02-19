@@ -20,4 +20,7 @@ bun dev
   - For unix systems `OLLAMA_ORIGINS=https://slatechat.vercel.app ollama serve`
   - For powershell `$env:OLLAMA_ORIGINS="https://slatechat.vercel.app"; ollama serve`
 - Go to https://slatechat.vercel.app/chat and start a new local chat, you should see your models listed in the dropdown
+
+![image](https://github.com/user-attachments/assets/9155eda5-88e2-4ad1-8e87-2474709b3e42)
+
 > If you're using the Brave browser or any other ad blockers, don't forget to disable the ad blocking or it won't work.
