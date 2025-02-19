@@ -2,6 +2,9 @@
 	import { Cuboid } from 'lucide-svelte';
 </script>
 
-<div class="mr-2 flex items-center justify-center rounded-full bg-[#000AC1] p-2">
-	<Cuboid class="size-6 text-white" />
-</div>
+<a href="/" class="flex items-center space-x-4">
+	<div class="flex w-fit items-center justify-center rounded-full bg-[#C7F4C2] p-2.5 text-zinc-950">
+		<Cuboid class="size-5" />
+	</div>
+	<span class="pr-4 text-lg font-semibold">slate</span>
+</a>
