@@ -12,7 +12,7 @@ const config: Config = {
 			padding: '1rem',
 			screens: {
 				lg: '900px',
-				'2xl': '1000px'
+				'2xl': '1200px'
 			}
 		},
 		extend: {
