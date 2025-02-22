@@ -14,7 +14,7 @@
 				secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm',
 				ghost: 'hover:bg-accent hover:text-accent-foreground',
 				link: 'text-primary underline-offset-4 hover:underline',
-				accent: 'bg-[#bfb5ff] text-neutral-950 hover:opacity-80 shadow-sm'
+				accent: 'bg-violet-400 text-neutral-950 hover:opacity-80 shadow-sm'
 			},
 			size: {
 				default: 'h-10 px-4 py-2',
