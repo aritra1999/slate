@@ -1,20 +1,24 @@
 <script lang="ts">
 	import { Bolt } from 'lucide-svelte';
-	import Logo from '$lib/components/ui/logo/logo.svelte';
-	import NewChat from '$lib/components/ui/chat/new-chat.svelte';
-	import Theme from '$lib/components/ui/app-sidebar/theme.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import Logo from '$lib/components/ui/logo/logo.svelte';
+	import Theme from '$lib/components/ui/app-sidebar/theme.svelte';
+	import SidebarChat from '$lib/components/ui/app-sidebar/sidebar-chats.svelte';
+	import SidebarModels from '$lib/components/ui/app-sidebar/sidebar-models.svelte';
 </script>
 
 <Sidebar.Root>
 	<Sidebar.Header class="justify-between">
 		<Logo />
-		<NewChat />
 	</Sidebar.Header>
 	<Sidebar.Content>
-		<Sidebar.Group />
-		<Sidebar.Group />
+		<Sidebar.Group>
+			<Sidebar.Menu>
+				<SidebarChat />
+				<SidebarModels />
+			</Sidebar.Menu>
+		</Sidebar.Group>
 	</Sidebar.Content>
 	<Sidebar.Footer>
 		<div class="flex items-center space-x-4">
