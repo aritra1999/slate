@@ -5,7 +5,7 @@ import { browser } from '$app/environment';
 const storedModels = browser ? localStorage.getItem('models') : null;
 const initialModels: Model[] = storedModels ? JSON.parse(storedModels) : [];
 
-const store = writable<Model[]>(initialModels);
+const store = writable<Model[]>(initialModels as Model[]);
 
 export const modelStore = {
 	subscribe: store.subscribe,
