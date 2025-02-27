@@ -88,4 +88,8 @@
 	a {
 		@apply underline;
 	}
+
+	* {
+		outline: none;
+	}
 }
