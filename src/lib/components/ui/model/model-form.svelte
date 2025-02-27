@@ -10,9 +10,9 @@
 	import { Label } from '$lib/components/ui/label/index.js';
 	import * as Alert from '$lib/components/ui/alert/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
-
 	import Loading from '$lib/components/ui/loading/loading.svelte';
 	import { modelStore } from '$lib/store/model.store';
+	import { metaStore } from '$lib/store/meta.store';
 
 	const modelFormSchema = z.object({
 		title: z.string().min(1, 'Title is required'),
@@ -24,7 +24,6 @@
 
 	let loadingModels = $state(false);
 	let errorLoadingModels = $state('');
-	let validFormValues = $state(false);
 	let formErrors = $state<Record<string, string>>({});
 	let availableModelOptions = $state<{ value: string; label: string }[]>([]);
 	let selectedModelOption = $state<{ value: string; label: string } | undefined>(undefined);
@@ -80,7 +79,6 @@
 		try {
 			modelFormSchema.parse(formData);
 			formErrors = {};
-			validFormValues = true;
 		} catch (error) {
 			if (error instanceof z.ZodError) {
 				formErrors = error.errors.reduce(
@@ -92,7 +90,6 @@
 					{} as Record<string, string>
 				);
 			}
-			validFormValues = false;
 		}
 	}
 
@@ -118,17 +115,13 @@
 				temperature: 0.7
 			};
 
-			alert('Model added successfully!');
+			$metaStore.showModelForm = false;
 		} catch (error) {
 			if (error instanceof z.ZodError) {
 				validateForm();
 			}
 		}
 	}
-
-	$effect(() => {
-		validateForm();
-	});
 
 	$effect(() => {
 		updateModels();
@@ -223,7 +216,7 @@
 					{/if}
 				</div>
 				<div class="space-y-1">
-					<Label for="title">Title</Label>
+					<Label required="true" for="title">Title</Label>
 					<Input id="title" type="text" bind:value={formData.title} />
 					{#if formErrors.title}
 						<p class="text-sm text-red-500">{formErrors.title}</p>
@@ -246,7 +239,7 @@
 			{/if}
 		</Card.Content>
 		<Card.Footer class="justify-end px-0">
-			<Button class="w-40" type="submit" disabled={!validFormValues}>Add Model</Button>
+			<Button class="w-40" type="submit">Add Model</Button>
 		</Card.Footer>
 	</Card.Root>
 </form>
