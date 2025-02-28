@@ -4,10 +4,10 @@
 
 	let {
 		ref = $bindable(null),
-		required,
+		required = false,
 		class: className,
 		...restProps
-	}: LabelPrimitive.RootProps = $props();
+	}: LabelPrimitive.RootProps & { required?: boolean } = $props();
 </script>
 
 <LabelPrimitive.Root
