@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import { EllipsisVertical } from 'lucide-svelte';
 	import { modelStore } from '$lib/store/model.store';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import NewModel from '$lib/components/ui/model/new-model.svelte';
 	import DeleteModelModal from '$lib/components/ui/model/model-delete-modal.svelte';
 </script>
