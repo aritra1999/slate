@@ -1,18 +1,19 @@
 <script lang="ts">
-	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { z } from 'zod';
-	import * as Card from '$lib/components/ui/card/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { toast } from 'svelte-sonner';
 	import { OLLAMA_SETUP_DOCS } from '$lib/config';
-	import { getOllamaModels } from '$lib/services/ollama';
-	import CircleAlert from 'lucide-svelte/icons/circle-alert';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import * as Tabs from '$lib/components/ui/tabs/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Alert from '$lib/components/ui/alert/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import Loading from '$lib/components/ui/loading/loading.svelte';
+	import CircleAlert from 'lucide-svelte/icons/circle-alert';
 	import { modelStore } from '$lib/store/model.store';
 	import { metaStore } from '$lib/store/meta.store';
+	import { getOllamaModels } from '$lib/services/ollama';
 
 	const modelFormSchema = z.object({
 		title: z.string().min(1, 'Title is required'),
@@ -108,6 +109,7 @@
 			};
 
 			modelStore.update((models) => [...models, newModel]);
+			$metaStore.showModelForm = false;
 
 			formData = {
 				title: '',
@@ -115,7 +117,7 @@
 				temperature: 0.7
 			};
 
-			$metaStore.showModelForm = false;
+			toast.success(`Added model ${validatedData.title}`);
 		} catch (error) {
 			if (error instanceof z.ZodError) {
 				validateForm();
@@ -216,7 +218,7 @@
 					{/if}
 				</div>
 				<div class="space-y-1">
-					<Label required="true" for="title">Title</Label>
+					<Label required={true} for="title">Title</Label>
 					<Input id="title" type="text" bind:value={formData.title} />
 					{#if formErrors.title}
 						<p class="text-sm text-red-500">{formErrors.title}</p>
