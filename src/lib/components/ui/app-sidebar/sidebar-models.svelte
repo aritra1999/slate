@@ -24,18 +24,7 @@
 									{model.name}, {model.temperature}
 								</div>
 							</div>
-							<DropdownMenu.Root>
-								<DropdownMenu.Trigger class={buttonVariants({ variant: 'ghost', size: 'icon' })}>
-									<EllipsisVertical class="size-4" />
-								</DropdownMenu.Trigger>
-								<DropdownMenu.Content>
-									<DropdownMenu.Group>
-										<DropdownMenu.GroupHeading>
-											<DeleteModelModal {model} />
-										</DropdownMenu.GroupHeading>
-									</DropdownMenu.Group>
-								</DropdownMenu.Content>
-							</DropdownMenu.Root>
+							<DeleteModelModal {model} />
 						</div>
 					</Sidebar.MenuSubButton>
 				</Sidebar.MenuSubItem>
