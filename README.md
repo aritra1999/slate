@@ -3,17 +3,27 @@
 ## Development
 
 ### Running locally
+
 ```sh
 bun install
 bun dev
 ```
 
+### Contributing
 
-## Docs 
+## Roadmap / Feature Set
+- [x] Support for local models with ollama
+- [ ] Basic text chat
+- [ ] Support for third party models using API keys (OpenAI, Anthropic, Geminai, Deepseek, etc..)
+- [ ] Support for local models with lm studio
+- [ ] Support for configuring custom models
+- [ ] Support for self hosted models
+
+
+## Docs
 > This will be replaced by dedicated documentation later.
 
-
-### How to setup `ollama` locally 
+### How to setup `ollama` locally
 - Setup `ollama` following the documentation on https://ollama.com/download
 - Choose any model or models from https://ollama.com/search that you wanna run and pull them using `ollama pull <MODEL_NAME>`
 - Run one of the following commands to start `ollama` locally
