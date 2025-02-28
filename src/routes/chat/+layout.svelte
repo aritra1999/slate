@@ -1,6 +1,7 @@
 <script lang="ts">
-	import AppSidebar from '$lib/components/ui/app-sidebar/app-sidebar.svelte';
+	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import AppSidebar from '$lib/components/ui/app-sidebar/app-sidebar.svelte';
 
 	let { children } = $props();
 </script>
@@ -14,3 +15,5 @@
 		{@render children?.()}
 	</Sidebar.Inset>
 </Sidebar.Provider>
+
+<Toaster position="top-right" />
