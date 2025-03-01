@@ -5,9 +5,11 @@ export const ollamaModelSchema = z.object({
 	modified_at: z.string()
 });
 
+export const rolesEnum = z.enum(['user', 'assistant', 'system']);
+
 export const messageSchema = z.object({
 	content: z.string(),
-	role: z.enum(['user', 'assistant', 'system'])
+	role: rolesEnum
 });
 
 export const modelSchema = z.object({
@@ -29,6 +31,7 @@ export const chatSchema = z.object({
 });
 
 export type OllamaModel = z.infer<typeof ollamaModelSchema>;
+export type Role = z.infer<typeof rolesEnum>;
 export type Message = z.infer<typeof messageSchema>;
 export type Model = z.infer<typeof modelSchema>;
 export type Chat = z.infer<typeof chatSchema>;
