@@ -15,7 +15,7 @@
 	bind:this={ref}
 	data-sidebar="menu-sub"
 	class={cn(
-		'ml-3.5 flex min-w-0 translate-x-px flex-col gap-2 border-l border-sidebar-border py-0.5 pl-2',
+		'flex min-w-0 translate-x-px flex-col gap-2 py-0.5',
 		'group-data-[collapsible=icon]:hidden',
 		className
 	)}
