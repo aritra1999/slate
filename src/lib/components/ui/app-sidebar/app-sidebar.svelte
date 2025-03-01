@@ -12,10 +12,12 @@
 	<Sidebar.Header class="justify-between">
 		<Logo />
 	</Sidebar.Header>
+	<Sidebar.Separator class="mb-4" />
 	<Sidebar.Content>
 		<Sidebar.Group>
 			<Sidebar.Menu>
 				<SidebarChat />
+				<Sidebar.Separator class="mb-4" />
 				<SidebarModels />
 			</Sidebar.Menu>
 		</Sidebar.Group>
