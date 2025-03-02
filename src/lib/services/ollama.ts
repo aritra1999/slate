@@ -22,24 +22,70 @@ export async function getOllamaModels(): Promise<Result<OllamaModel[]>> {
 
 export async function communicateToOllamaModel(
 	modelName: string,
-	messages: Message[]
+	messages: Message[],
+	onUpdate?: (partialMessage: string) => void
 ): Promise<Result<Message>> {
 	try {
-		const chatResponse = await ky
-			.post(`${OLLAMA_API_URL}/api/chat`, {
-				retry: 0,
-				headers: {
-					'content-type': 'application/json'
-				},
-				json: {
-					model: modelName,
-					messages: messages
-				},
-				referrerPolicy: 'strict-origin-when-cross-origin'
+		const response = await fetch(`${OLLAMA_API_URL}/api/chat`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				model: modelName,
+				messages: messages,
+				stream: true
 			})
-			.json<{ message: Message }>();
+		});
 
-		return ok(chatResponse.message);
+		if (!response.ok || !response.body) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const reader = response.body.getReader();
+		const decoder = new TextDecoder();
+		let fullContent = '';
+
+		while (true) {
+			const { done, value } = await reader.read();
+			if (done) break;
+
+			const chunk = decoder.decode(value, { stream: true });
+			const lines = chunk.split('\n').filter((line) => line.trim() !== '');
+
+			for (const line of lines) {
+				try {
+					const parsed = JSON.parse(line);
+
+					// Debug log to see structure
+					console.log('Raw parsed chunk:', parsed);
+
+					if (parsed.message && parsed.message.content) {
+						// Extract the new content chunk
+						const newContentChunk = parsed.message.content;
+						console.log('New content chunk:', newContentChunk);
+
+						// Add this chunk to our full message
+						fullContent += newContentChunk;
+						console.log('Current full content:', fullContent);
+
+						// Update the UI with the complete content so far
+						if (onUpdate) {
+							onUpdate(fullContent);
+						}
+					}
+				} catch (e) {
+					console.error('Error parsing JSON from stream:', e);
+				}
+			}
+		}
+
+		const assistantMessage: Message = {
+			role: 'assistant',
+			content: fullContent
+		};
+
+		return ok(assistantMessage);
 	} catch (error) {
 		return err(error);
 	}
