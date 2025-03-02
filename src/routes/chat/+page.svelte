@@ -1,7 +1,7 @@
 <script lang="ts">
-	import ChatSection from '$lib/components/ui/chat/chat-section.svelte';
+	import ChatContainer from '$lib/components/ui/chat/chat-container.svelte';
 </script>
 
 <div class="h-full w-full overflow-hidden">
-	<ChatSection />
+	<ChatContainer />
 </div>
