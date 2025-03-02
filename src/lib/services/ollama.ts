@@ -57,19 +57,11 @@ export async function communicateToOllamaModel(
 				try {
 					const parsed = JSON.parse(line);
 
-					// Debug log to see structure
-					console.log('Raw parsed chunk:', parsed);
-
 					if (parsed.message && parsed.message.content) {
-						// Extract the new content chunk
 						const newContentChunk = parsed.message.content;
-						console.log('New content chunk:', newContentChunk);
 
-						// Add this chunk to our full message
 						fullContent += newContentChunk;
-						console.log('Current full content:', fullContent);
 
-						// Update the UI with the complete content so far
 						if (onUpdate) {
 							onUpdate(fullContent);
 						}

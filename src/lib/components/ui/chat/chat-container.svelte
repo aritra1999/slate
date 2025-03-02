@@ -8,7 +8,6 @@
 	import NewModel from '$lib/components/ui/model/new-model.svelte';
 	import ModelDetails from '$lib/components/ui/model-details/model-details.svelte';
 	import MessageContainer from '$lib/components/ui/message/message-container.svelte';
-	import MessageBubble from '$lib/components/ui/message/message-bubble.svelte';
 	import { communicateToOllamaModel } from '$lib/services/ollama';
 	import { toast } from 'svelte-sonner';
 
@@ -25,11 +24,10 @@
 	});
 
 	function handleKeydown(e: KeyboardEvent) {
-		// Handle Ctrl+Enter or Cmd+Enter
 		if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-			e.preventDefault(); // Prevent default to avoid new line in textarea
+			e.preventDefault();
 			if (!disableSend) {
-				chat(new Event('submit')); // Trigger the chat function
+				chat(new Event('submit'));
 			}
 		}
 	}
@@ -179,14 +177,14 @@
 			</form>
 		</div>
 	{:else}
-		<div class="flex h-full items-center justify-center">
-			<MessageBubble role="system" class="">
+		<div class="flex h-full items-center justify-center p-4">
+			<div>
+				<div class="mb-4">No chat's selected</div>
 				<img
 					src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3huOWZ6YjY1NGkwY2t4bDd0bW5qcjUweGxpb2NoYWwwZGh5aDlydiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/a5viI92PAF89q/giphy.gif"
 					class="mb-4 w-full rounded-lg"
 					alt=""
 				/>
-				<div class="mb-4">No chat's selected</div>
 				<div class="space-x-3">
 					<NewChat>
 						<Dialog.Trigger
@@ -205,7 +203,7 @@
 						</Dialog.Trigger>
 					</NewModel>
 				</div>
-			</MessageBubble>
+			</div>
 		</div>
 	{/if}
 </div>
