@@ -77,7 +77,7 @@
 			id: crypto.randomUUID(),
 			title: formData.title,
 			model: model,
-			steam: formData.stream ?? true,
+			stream: formData.stream ?? true,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 			messages

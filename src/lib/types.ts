@@ -24,7 +24,7 @@ export const chatSchema = z.object({
 	id: z.string(),
 	title: z.string(),
 	model: modelSchema,
-	steam: z.boolean(),
+	stream: z.boolean(),
 	messages: z.array(messageSchema),
 	updatedAt: z.date(),
 	createdAt: z.date()
