@@ -1,194 +1,155 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { z } from 'zod';
+	import { communicateToOllamaModel } from '$lib/services/ollama';
+	import { Send } from 'lucide-svelte';
+	import { Button } from '$lib/components/ui/button';
+	import ChatAttachment from '$lib/components/ui/chat/chat-attachment.svelte';
+	import ModelDetails from '$lib/components/ui/model-details/model-details.svelte';
 	import { toast } from 'svelte-sonner';
-	import { modelStore } from '$lib/store/model.store';
 	import { chatStore, selectedChatStore } from '$lib/store/chat.store';
-	import { metaStore } from '$lib/store/meta.store';
-	import { Label } from '$lib/components/ui/label/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Textarea } from '$lib/components/ui/textarea/index.js';
-	import { Input } from '$lib/components/ui/input/index.js';
-	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
-	import * as Card from '$lib/components/ui/card/index.js';
-	import * as Alert from '$lib/components/ui/alert/index.js';
-	import * as Select from '$lib/components/ui/select/index.js';
-	import { CircleAlert } from 'lucide-svelte';
-	import type { Role } from '$lib/types';
+	import type { Chat, Message } from '$lib/types';
 
-	const chatFormSchema = z.object({
-		title: z.string().min(1, 'Title is required'),
-		modelId: z.string().min(1, 'Model is required'),
-		systemPrompt: z.string().optional(),
-		stream: z.boolean().optional()
-	});
+	let input: string = $state('');
+	let disableSend = $state(true);
+	let isLoading = $state(false);
+	let selectedChat = $derived<Chat | undefined>(
+		$selectedChatStore ? $chatStore.get($selectedChatStore) : undefined
+	);
 
-	type ChatFormData = z.infer<typeof chatFormSchema>;
-
-	let modelOptions = $state<{ value: string; label: string }[]>();
-	let selectedModel = $state<{ value: string; label: string } | undefined>(undefined);
-	let formErrors = $state<Record<string, string>>({});
-	let formData = $state<ChatFormData>({
-		title: '',
-		modelId: '',
-		systemPrompt: '',
-		stream: true
-	});
-
-	function validateForm() {
-		try {
-			chatFormSchema.parse(formData);
-			formErrors = {};
-			return true;
-		} catch (error) {
-			if (error instanceof z.ZodError) {
-				formErrors = error.errors.reduce(
-					(acc, curr) => {
-						const field = curr.path[0] as string;
-						acc[field] = curr.message;
-						return acc;
-					},
-					{} as Record<string, string>
-				);
-			}
-			return false;
-		}
-	}
-
-	async function handleSubmit(e: Event) {
-		e.preventDefault();
-		formData.modelId = selectedModel?.value || '';
-
-		if (!validateForm()) {
-			return;
-		}
-
-		const model = $modelStore.find((m) => m.id === formData.modelId);
-		if (!model) {
-			formErrors.modelId = 'Invalid model selected';
-			return;
-		}
-
-		const messages = formData.systemPrompt
-			? [{ role: 'system' as Role, content: formData.systemPrompt }]
-			: [];
-
-		const newChat = {
-			id: crypto.randomUUID(),
-			title: formData.title,
-			model: model,
-			stream: formData.stream ?? true,
-			createdAt: new Date(),
-			updatedAt: new Date(),
-			messages
-		};
-
+	function onUpdate(messageContent: string) {
 		chatStore.update((chats) => {
-			const newChats = new Map(chats);
-			newChats.set(newChat.id, newChat);
-			return newChats;
+			const chat = chats.get($selectedChatStore!);
+			if (chat) {
+				const messages = [...chat.messages];
+				const lastIndex = messages.length - 1;
+
+				if (lastIndex >= 0 && messages[lastIndex].role === 'assistant') {
+					messages[lastIndex] = {
+						...messages[lastIndex],
+						content: messageContent
+					};
+				}
+
+				const updatedChat = {
+					...chat,
+					messages,
+					updatedAt: new Date()
+				};
+
+				const newChats = new Map(chats);
+				newChats.set($selectedChatStore!, updatedChat);
+				return newChats;
+			}
+			return chats;
 		});
-
-		selectedChatStore.set(newChat.id);
-		$metaStore.showChatForm = false;
-
-		toast.success(`New chat "${formData.title}" created`);
 	}
 
-	onMount(() => {
-		if ($modelStore.length > 0) {
-			modelOptions = $modelStore.map((model) => ({
-				value: model.id,
-				label: `${model.title} (${model.name}, ${model.temperature})`
-			}));
-			selectedModel = modelOptions[0];
-			if (selectedModel) {
-				formData.modelId = selectedModel.value;
+	async function chat(e: Event) {
+		e.preventDefault();
+		if (selectedChat && $selectedChatStore) {
+			isLoading = true;
+
+			const userMessage: Message = {
+				role: 'user',
+				content: input
+			};
+
+			chatStore.update((chats) => {
+				const chat = chats.get($selectedChatStore!);
+				if (chat) {
+					const updatedChat = {
+						...chat,
+						messages: [...chat.messages, userMessage],
+						updatedAt: new Date()
+					};
+					const newChats = new Map(chats);
+					newChats.set($selectedChatStore!, updatedChat);
+					return newChats;
+				}
+				return chats;
+			});
+
+			input = '';
+			const currentChat = chatStore.getChat($selectedChatStore);
+			if (currentChat && currentChat.model) {
+				try {
+					const initialAssistantMessage: Message = {
+						role: 'assistant',
+						content: ''
+					};
+
+					chatStore.update((chats) => {
+						const chat = chats.get($selectedChatStore!);
+						if (chat) {
+							const updatedChat = {
+								...chat,
+								messages: [...chat.messages, initialAssistantMessage],
+								updatedAt: new Date()
+							};
+							const newChats = new Map(chats);
+							newChats.set($selectedChatStore!, updatedChat);
+							return newChats;
+						}
+						return chats;
+					});
+
+					let accumulatedContent = '';
+					const result = await communicateToOllamaModel(
+						currentChat.model.name,
+						currentChat.messages,
+						(latestContent) => {
+							accumulatedContent = latestContent;
+							onUpdate(accumulatedContent);
+						}
+					);
+
+					if (!result.success) {
+						toast.error('Failed to get response from model: ' + result.error.message);
+					}
+				} catch (error) {
+					toast.error('An error occurred while communicating with the model');
+					console.error(error);
+				} finally {
+					isLoading = false;
+				}
 			}
 		}
+	}
+
+	$effect(() => {
+		disableSend = input.length < 2 || isLoading;
 	});
+
+	function handleKeydown(e: KeyboardEvent) {
+		if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+			e.preventDefault();
+			if (!disableSend) {
+				chat(new Event('submit'));
+			}
+		}
+	}
 </script>
 
-<form action="" onsubmit={handleSubmit}>
-	<Card.Root class="border-0 p-0 shadow-none">
-		<Card.Content class="space-y-4 px-0">
-			<div class="space-y-1">
-				<Label for="model-name" required={true}>Model</Label>
-				{#if $modelStore.length > 0}
-					{#if selectedModel && modelOptions}
-						<Select.Root
-							type="single"
-							value={selectedModel.value}
-							onValueChange={(newValue: string) => {
-								if (modelOptions) {
-									selectedModel = modelOptions.find((option) => option.value === newValue);
-									if (selectedModel) {
-										formData.modelId = selectedModel.value;
-									}
-								}
-							}}
-						>
-							<Select.Trigger>
-								{selectedModel.label}
-							</Select.Trigger>
-							<Select.Content>
-								{#each modelOptions as { label, value }}
-									<Select.Item {value}>{label}</Select.Item>
-								{/each}
-							</Select.Content>
-						</Select.Root>
-						{#if formErrors.modelId}
-							<p class="text-sm text-red-500">{formErrors.modelId}</p>
-						{/if}
-					{/if}
-				{:else}
-					<Alert.Root variant="destructive">
-						<CircleAlert class="size-4" />
-						<Alert.Description>
-							<p>No models available</p>
-							<p>Please add a model first!</p>
-						</Alert.Description>
-					</Alert.Root>
-				{/if}
+<div class="flex-none p-4">
+	<form class="rounded-3xl border-2 bg-sidebar p-2" onsubmit={chat}>
+		<textarea
+			bind:value={input}
+			onkeydown={handleKeydown}
+			class="w-full resize-none overflow-y-auto bg-transparent px-3 py-2.5 placeholder:text-muted-foreground focus:outline-0"
+			placeholder="What's on your mind?"
+			rows="3"
+			disabled={isLoading}
+		></textarea>
+		<div class="flex items-start justify-between">
+			<div class="flex space-x-2">
+				<ModelDetails {selectedChat} />
+				<ChatAttachment />
 			</div>
-			<div class="space-y-1">
-				<Label for="title" required={true}>Title</Label>
-				<Input
-					id="title"
-					type="text"
-					bind:value={formData.title}
-					placeholder="Give your chat a title"
-				/>
-				{#if formErrors.title}
-					<p class="text-sm text-red-500">{formErrors.title}</p>
-				{/if}
+			<div class="flex items-center">
+				<span class="mr-2 text-xs text-muted-foreground">Ctrl+Enter to send</span>
+				<Button class="rounded-sm rounded-br-2xl" size="icon" type="submit" disabled={disableSend}>
+					<Send />
+				</Button>
 			</div>
-			<div class="space-y-1">
-				<Label for="system-prompt">System Prompt</Label>
-				<Textarea
-					id="system-prompt"
-					name="system-prompt"
-					class="h-36 resize-none"
-					bind:value={formData.systemPrompt}
-					placeholder="Optional instructions to set the behavior of the assistant"
-				/>
-				{#if formErrors.systemPrompt}
-					<p class="text-sm text-red-500">{formErrors.systemPrompt}</p>
-				{/if}
-			</div>
-			<div class="flex items-center space-x-2">
-				<Checkbox
-					id="stream"
-					checked={formData.stream}
-					onCheckedChange={(checked) => {
-						formData.stream = checked === true;
-					}}
-				/>
-				<Label for="stream" class="text-sm font-normal">Enable streaming responses</Label>
-			</div>
-		</Card.Content>
-		<Card.Footer class="justify-end px-0">
-			<Button class="w-40" type="submit" disabled={$modelStore.length === 0}>Start Chat</Button>
-		</Card.Footer>
-	</Card.Root>
-</form>
+		</div>
+	</form>
+</div>
