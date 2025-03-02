@@ -9,7 +9,7 @@
 </script>
 
 <Sidebar.MenuItem>
-	<Sidebar.MenuButton class="font-medium">Models</Sidebar.MenuButton>
+	<Sidebar.MenuButton class="text-base font-medium">Models</Sidebar.MenuButton>
 	<Sidebar.MenuSub>
 		{#if $modelStore.length > 0}
 			{#each $modelStore as model}

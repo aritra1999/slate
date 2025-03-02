@@ -8,11 +8,13 @@
 
 <Sidebar.Provider>
 	<AppSidebar />
-	<Sidebar.Inset>
+	<Sidebar.Inset class="flex h-screen flex-col overflow-hidden">
 		<header class="flex h-16 shrink-0 items-center justify-between gap-2 px-4">
 			<Sidebar.Trigger class="-ml-1" />
 		</header>
-		{@render children?.()}
+		<div class="flex-1 overflow-hidden">
+			{@render children?.()}
+		</div>
 	</Sidebar.Inset>
 </Sidebar.Provider>
 

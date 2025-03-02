@@ -157,7 +157,15 @@
 			</div>
 			<div class="space-y-1">
 				<Label for="service-name">Service</Label>
-				<Select.Root type="single" bind:value={selectedLocalServiceOption.value}>
+				<Select.Root
+					type="single"
+					value={selectedLocalServiceOption.value}
+					onValueChange={(newValue: string) => {
+						selectedLocalServiceOption =
+							localServiceOptions.find((option) => option.value === newValue) ||
+							localServiceOptions[0];
+					}}
+				>
 					<Select.Trigger>
 						{selectedLocalServiceOption.label}
 					</Select.Trigger>
@@ -205,7 +213,16 @@
 				<div class="space-y-1">
 					{#if selectedModelOption}
 						<Label for="model-name">Model</Label>
-						<Select.Root type="single" bind:value={selectedModelOption.value}>
+						<Select.Root
+							type="single"
+							value={selectedModelOption.value}
+							onValueChange={(newValue: string) => {
+								selectedModelOption =
+									availableModelOptions.find((option) => option.value === newValue) ||
+									availableModelOptions[0];
+								formData.name = selectedModelOption.value;
+							}}
+						>
 							<Select.Trigger>
 								{selectedModelOption.label}
 							</Select.Trigger>
