@@ -9,16 +9,25 @@ bun install
 bun dev
 ```
 
-### Contributing
-
 ## Roadmap / Feature Set
-- [x] Support for local models with ollama
-- [ ] Basic text chat
-- [ ] Support for third party models using API keys (OpenAI, Anthropic, Geminai, Deepseek, etc..)
-- [ ] Support for local models with lm studio
-- [ ] Support for configuring custom models
-- [ ] Support for self hosted models
-
+- [ ] Chat
+  - [x] Basic text chat - https://github.com/aritra1999/slate/pull/18
+  - [ ] Rendering response as markdown
+  - [ ] File upload for additional context
+- [ ] Support for local models
+  - [x] With Ollama - https://github.com/aritra1999/slate/pull/15
+  - [ ] With LM Studio
+  - [ ] Custom config
+- [ ] Support for third-party models using API keys
+  - [ ] OpenAI
+  - [ ] Anthropic
+  - [ ] Geminai
+  - [ ] Deepseek
+- [ ] Support for self-hosted models
+  - [ ] With Ollama
+  - [ ] With LM Studio
+  - [ ] Custom config
+- [ ] Documentation
 
 ## Docs
 > This will be replaced by dedicated documentation later.
