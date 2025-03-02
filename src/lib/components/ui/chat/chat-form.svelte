@@ -83,7 +83,12 @@
 			messages
 		};
 
-		chatStore.update((chats) => [...chats, newChat]);
+		chatStore.update((chats) => {
+			const newChats = new Map(chats);
+			newChats.set(newChat.id, newChat);
+			return newChats;
+		});
+
 		selectedChatStore.set(newChat.id);
 		$metaStore.showChatForm = false;
 
