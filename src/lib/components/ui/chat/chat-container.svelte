@@ -32,18 +32,44 @@
 		}
 	}
 
+	function onUpdate(messageContent: string) {
+		chatStore.update((chats) => {
+			const chat = chats.get($selectedChatStore!);
+			if (chat) {
+				const messages = [...chat.messages];
+				const lastIndex = messages.length - 1;
+
+				if (lastIndex >= 0 && messages[lastIndex].role === 'assistant') {
+					messages[lastIndex] = {
+						...messages[lastIndex],
+						content: messageContent
+					};
+				}
+
+				const updatedChat = {
+					...chat,
+					messages,
+					updatedAt: new Date()
+				};
+
+				const newChats = new Map(chats);
+				newChats.set($selectedChatStore!, updatedChat);
+				return newChats;
+			}
+			return chats;
+		});
+	}
+
 	async function chat(e: Event) {
 		e.preventDefault();
 		if (selectedChat && $selectedChatStore) {
 			isLoading = true;
 
-			// Create user message
 			const userMessage: Message = {
 				role: 'user',
 				content: input
 			};
 
-			// Add user message to chat
 			chatStore.update((chats) => {
 				const chat = chats.get($selectedChatStore!);
 				if (chat) {
@@ -59,15 +85,9 @@
 				return chats;
 			});
 
-			// Clear input immediately after showing user message
-			input = '';
-
-			// Get updated chat with the new user message
 			const currentChat = chatStore.getChat($selectedChatStore);
-
 			if (currentChat && currentChat.model) {
 				try {
-					// Add an initial empty assistant message to display the stream
 					const initialAssistantMessage: Message = {
 						role: 'assistant',
 						content: ''
@@ -88,43 +108,13 @@
 						return chats;
 					});
 
-					// Create a local variable to track the complete message content
 					let accumulatedContent = '';
-
-					// Call Ollama API with streaming
 					const result = await communicateToOllamaModel(
 						currentChat.model.name,
 						currentChat.messages,
 						(latestContent) => {
-							// Store the complete content from the API
 							accumulatedContent = latestContent;
-
-							// Update the assistant message with the accumulated content
-							chatStore.update((chats) => {
-								const chat = chats.get($selectedChatStore!);
-								if (chat) {
-									const messages = [...chat.messages];
-									const lastIndex = messages.length - 1;
-
-									if (lastIndex >= 0 && messages[lastIndex].role === 'assistant') {
-										messages[lastIndex] = {
-											...messages[lastIndex],
-											content: accumulatedContent
-										};
-									}
-
-									const updatedChat = {
-										...chat,
-										messages,
-										updatedAt: new Date()
-									};
-
-									const newChats = new Map(chats);
-									newChats.set($selectedChatStore!, updatedChat);
-									return newChats;
-								}
-								return chats;
-							});
+							onUpdate(accumulatedContent);
 						}
 					);
 
@@ -138,6 +128,8 @@
 					isLoading = false;
 				}
 			}
+
+			input = '';
 		}
 	}
 </script>
