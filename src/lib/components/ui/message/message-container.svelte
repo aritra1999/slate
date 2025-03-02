@@ -8,8 +8,21 @@
 	);
 
 	let messages = $derived<Message[]>(selectedChat ? selectedChat.messages : []);
+	let container: HTMLElement;
+
+	function scrollToBottom() {
+		container.scrollTop = container.scrollHeight;
+	}
+
+	$effect(() => {
+		if (container && messages.length) {
+			scrollToBottom();
+		}
+	});
 </script>
 
-{#each messages as message}
-	<MessageBubble role={message.role} class="">{message.content}</MessageBubble>
-{/each}
+<div bind:this={container} class="flex-1 overflow-y-auto p-4">
+	{#each messages as message}
+		<MessageBubble role={message.role} class="">{message.content}</MessageBubble>
+	{/each}
+</div>

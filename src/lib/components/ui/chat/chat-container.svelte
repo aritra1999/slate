@@ -150,9 +150,7 @@
 			<h2 class="text-xl font-semibold">{selectedChat.title}</h2>
 		</div>
 
-		<div class="flex-1 overflow-y-auto p-4">
-			<MessageContainer />
-		</div>
+		<MessageContainer />
 
 		<div class="flex-none p-4">
 			<form class="rounded-3xl border-2 bg-sidebar p-2" onsubmit={chat}>
