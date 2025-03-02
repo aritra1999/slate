@@ -13,7 +13,9 @@
 		(message: Message) => message.role === 'system'
 	)}
 	<Popover.Root>
-		<Popover.Trigger class={cn(buttonVariants({ variant: 'accent' }), 'rounded-2xl px-4 ')}>
+		<Popover.Trigger
+			class={cn(buttonVariants({ variant: 'accent' }), 'rounded-sm rounded-bl-2xl px-4')}
+		>
 			{model.title} - {model.name}, {model.temperature}
 		</Popover.Trigger>
 		<Popover.Content class="w-80 text-sm">
