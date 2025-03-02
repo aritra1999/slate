@@ -23,7 +23,7 @@
 
 <div bind:this={container} class="flex-1 overflow-y-auto p-4">
 	{#if messages.length > 0}
-		{#each messages as message, i (message.id || i)}
+		{#each messages as message}
 			<MessageBubble role={message.role} content={message.content} class=""></MessageBubble>
 		{/each}
 	{:else}
