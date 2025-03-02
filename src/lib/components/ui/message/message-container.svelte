@@ -23,6 +23,6 @@
 
 <div bind:this={container} class="flex-1 overflow-y-auto p-4">
 	{#each messages as message}
-		<MessageBubble role={message.role} class="">{message.content}</MessageBubble>
+		<MessageBubble role={message.role} content={message.content} class=""></MessageBubble>
 	{/each}
 </div>

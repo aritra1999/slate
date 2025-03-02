@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
-	import { Sparkles, User } from 'lucide-svelte';
+	import { Sparkles, User, Loader2 } from 'lucide-svelte';
 
-	let { class: className, role, children } = $props();
+	let { class: className, role, content } = $props();
+	let isThinking = $derived(role === 'assistant' && (!content || content.trim() === ''));
 </script>
 
 <div class={cn(role === 'user' ? 'justify-end' : 'justify-start', 'flex w-full')}>
@@ -19,7 +20,14 @@
 				className
 			)}
 		>
-			{@render children()}
+			{#if isThinking}
+				<div class="flex items-center text-muted-foreground">
+					<Loader2 class="mr-2 size-4 animate-spin" />
+					<span>Thinking...</span>
+				</div>
+			{:else}
+				{content}
+			{/if}
 		</div>
 		{#if role === 'user'}
 			<div class="flex size-10 items-center justify-center rounded-lg bg-orange-300 p-2.5">
