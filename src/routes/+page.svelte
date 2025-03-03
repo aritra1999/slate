@@ -14,9 +14,12 @@
 					<br />
 					self-hosted and cloud llms.
 				</p>
-				<a class="underline" target="_blank" href="https://github.com/aritra1999/slate">
-					Want to contribute?
-				</a>
+				<div class="mr-2">
+					<a href="/chat"> Chat </a>
+				</div>
+				<div>
+					<a target="_blank" href="https://github.com/aritra1999/slate">Contribute</a>
+				</div>
 			</div>
 			<img
 				src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGs5bTk2YWJ2dzliYXJyeGF6cjkycjk3NXEwZ2RpMjd1NGpwMzVvMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/W6A8UMnaJj8YbM9CQw/giphy.gif"
