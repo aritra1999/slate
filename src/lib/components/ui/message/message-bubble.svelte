@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils';
 	import { Sparkles, User, Loader2 } from 'lucide-svelte';
+	import Markdown from '$lib/components/ui/markdown/markdown.svelte';
 
 	let { class: className, role, content } = $props();
 	let isThinking = $derived(role === 'assistant' && (!content || content.trim() === ''));
@@ -25,8 +26,10 @@
 					<Loader2 class="mr-2 size-4 animate-spin" />
 					<span>Thinking...</span>
 				</div>
+			{:else if role === 'assistant'}
+				<Markdown {content} />
 			{:else}
-				{content}
+				<div class="whitespace-pre-wrap">{content}</div>
 			{/if}
 		</div>
 		{#if role === 'user'}
