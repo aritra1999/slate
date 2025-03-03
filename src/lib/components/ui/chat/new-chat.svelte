@@ -27,7 +27,7 @@
 
 	type ChatFormData = z.infer<typeof chatFormSchema>;
 
-	let modelOptions = $state<{ value: string; label: string }[]>();
+	let modelOptions = $state<{ value: string; label: string }[]>([]);
 	let selectedModel = $state<{ value: string; label: string } | undefined>(undefined);
 	let formErrors = $state<Record<string, string>>({});
 	let formData = $state<ChatFormData>({
@@ -97,17 +97,36 @@
 		toast.success(`New chat "${formData.title}" created`);
 	}
 
-	onMount(() => {
+	function updateModelOptions() {
 		if ($modelStore.length > 0) {
 			modelOptions = $modelStore.map((model) => ({
 				value: model.id,
 				label: `${model.title} (${model.name}, ${model.temperature})`
 			}));
-			selectedModel = modelOptions[0];
-			if (selectedModel) {
+
+			if (!selectedModel && modelOptions.length > 0) {
+				selectedModel = modelOptions[0];
 				formData.modelId = selectedModel.value;
 			}
+		} else {
+			modelOptions = [];
+			selectedModel = undefined;
+			formData.modelId = '';
 		}
+	}
+
+	$effect(() => {
+		if ($metaStore.showChatForm) {
+			updateModelOptions();
+		}
+	});
+
+	$effect(() => {
+		updateModelOptions();
+	});
+
+	onMount(() => {
+		updateModelOptions();
 	});
 
 	let { children } = $props();
