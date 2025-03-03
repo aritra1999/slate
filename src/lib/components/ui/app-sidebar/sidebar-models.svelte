@@ -9,7 +9,19 @@
 </script>
 
 <Sidebar.MenuItem>
-	<Sidebar.MenuButton class="text-base font-medium">Models</Sidebar.MenuButton>
+	<div class="mb-4 flex items-center justify-between">
+		<div class="pl-2 text-base font-medium">Models</div>
+		<NewModel>
+			<Sidebar.MenuSubItem>
+				<Dialog.Trigger
+					class={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'px-4 py-1')}
+					aria-label="Add Model"
+				>
+					Add Model
+				</Dialog.Trigger>
+			</Sidebar.MenuSubItem>
+		</NewModel>
+	</div>
 	<Sidebar.MenuSub>
 		{#if $modelStore.length > 0}
 			{#each $modelStore as model}
@@ -40,15 +52,5 @@
 				</Sidebar.MenuSubButton>
 			</Sidebar.MenuSubItem>
 		{/if}
-		<NewModel>
-			<Sidebar.MenuSubItem>
-				<Dialog.Trigger
-					class={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'ml-2 px-6')}
-					aria-label="Add Modal"
-				>
-					Add Modal
-				</Dialog.Trigger>
-			</Sidebar.MenuSubItem>
-		</NewModel>
 	</Sidebar.MenuSub>
 </Sidebar.MenuItem>

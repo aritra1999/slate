@@ -7,7 +7,9 @@
 		$selectedChatStore ? $chatStore.get($selectedChatStore) : undefined
 	);
 
-	let messages = $derived<Message[]>(selectedChat ? selectedChat.messages : []);
+	let messages = $derived<Message[]>(
+		selectedChat ? selectedChat.messages.filter((msg) => msg.role !== 'system') : []
+	);
 	let container: HTMLElement;
 
 	function scrollToBottom() {

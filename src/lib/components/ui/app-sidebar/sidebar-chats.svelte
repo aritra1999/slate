@@ -14,8 +14,20 @@
 	}
 </script>
 
-<Sidebar.MenuItem class="mb-4">
-	<Sidebar.MenuButton class="text-base font-medium">Chats</Sidebar.MenuButton>
+<Sidebar.MenuItem class="mb-4 ">
+	<div class="mb-4 flex items-center justify-between">
+		<div class="pl-2 text-base font-medium">Chats</div>
+		<NewChat>
+			<Sidebar.MenuSubItem>
+				<Dialog.Trigger
+					class={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'px-4 py-1')}
+					aria-label="Start new chat"
+				>
+					Add Chat
+				</Dialog.Trigger>
+			</Sidebar.MenuSubItem>
+		</NewChat>
+	</div>
 	<Sidebar.MenuSub>
 		{#if chatsArray.length > 0}
 			{#each chatsArray as chat}
@@ -53,15 +65,5 @@
 				</Sidebar.MenuSubButton>
 			</Sidebar.MenuSubItem>
 		{/if}
-		<NewChat>
-			<Sidebar.MenuSubItem>
-				<Dialog.Trigger
-					class={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'ml-2 px-6')}
-					aria-label="Start new chat"
-				>
-					Add Chat
-				</Dialog.Trigger>
-			</Sidebar.MenuSubItem>
-		</NewChat>
 	</Sidebar.MenuSub>
 </Sidebar.MenuItem>

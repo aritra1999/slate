@@ -22,12 +22,14 @@
 			)}
 		>
 			{#if isThinking}
-				<div class="flex items-center py-4 text-muted-foreground">
+				<div class="flex items-center py-2.5 text-muted-foreground">
 					<Loader2 class="mr-2 size-4 animate-spin" />
 					<span>Thinking...</span>
 				</div>
 			{:else if role === 'assistant'}
-				<Markdown {content} />
+				<div class="py-2.5">
+					<Markdown {content} />
+				</div>
 			{:else}
 				<div class="whitespace-pre-wrap">{content}</div>
 			{/if}
