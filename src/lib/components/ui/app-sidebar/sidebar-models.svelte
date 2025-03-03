@@ -15,9 +15,9 @@
 			<Sidebar.MenuSubItem>
 				<Dialog.Trigger
 					class={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), 'px-4 py-1')}
-					aria-label="Add Modal"
+					aria-label="Add Model"
 				>
-					Add Modal
+					Add Model
 				</Dialog.Trigger>
 			</Sidebar.MenuSubItem>
 		</NewModel>
