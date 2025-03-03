@@ -17,7 +17,7 @@ bun dev
 ## Roadmap / Feature Set
 - [ ] Chat
   - [x] Basic text chat - https://github.com/aritra1999/slate/pull/18
-  - [ ] Rendering response as markdown
+  - [x] Rendering response as markdown - https://github.com/aritra1999/slate/pull/20
   - [ ] File upload for additional context
 - [ ] Support for local models
   - [x] With Ollama - https://github.com/aritra1999/slate/pull/15
