@@ -1,4 +1,9 @@
 # slate
+One UI for hosting communicating to all LLMs. Our UI, your LLM. 
+- No more complex docker setups to communicate to ollama running locally or remotely. 
+- Bring your own API tokens and pay for what you use
+- Completely free to use.
+- Everything's stored locally. 
 
 ## Development
 
@@ -9,16 +14,25 @@ bun install
 bun dev
 ```
 
-### Contributing
-
 ## Roadmap / Feature Set
-- [x] Support for local models with ollama
-- [ ] Basic text chat
-- [ ] Support for third party models using API keys (OpenAI, Anthropic, Geminai, Deepseek, etc..)
-- [ ] Support for local models with lm studio
-- [ ] Support for configuring custom models
-- [ ] Support for self hosted models
-
+- [ ] Chat
+  - [x] Basic text chat - https://github.com/aritra1999/slate/pull/18
+  - [ ] Rendering response as markdown
+  - [ ] File upload for additional context
+- [ ] Support for local models
+  - [x] With Ollama - https://github.com/aritra1999/slate/pull/15
+  - [ ] With LM Studio
+  - [ ] Custom config
+- [ ] Support for third-party models using API keys
+  - [ ] OpenAI
+  - [ ] Anthropic
+  - [ ] Geminai
+  - [ ] Deepseek
+- [ ] Support for self-hosted models
+  - [ ] With Ollama
+  - [ ] With LM Studio
+  - [ ] Custom config
+- [ ] Documentation
 
 ## Docs
 > This will be replaced by dedicated documentation later.
