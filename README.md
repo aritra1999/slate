@@ -1,4 +1,9 @@
 # slate
+One UI for hosting communicating to all LLMs. Our UI, your LLM. 
+- No more complex docker setups to communicate to ollama running locally or remotely. 
+- Bring your own API tokens and pay for what you use
+- Completely free to use.
+- Everything's stored locally. 
 
 ## Development
 
