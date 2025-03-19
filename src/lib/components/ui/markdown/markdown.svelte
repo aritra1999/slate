@@ -2,35 +2,6 @@
 	import { onMount } from 'svelte';
 	import DOMPurify from 'dompurify';
 	import { marked } from 'marked';
-	import hljs from 'highlight.js/lib/core';
-	import javascript from 'highlight.js/lib/languages/javascript';
-	import typescript from 'highlight.js/lib/languages/typescript';
-	import python from 'highlight.js/lib/languages/python';
-	import css from 'highlight.js/lib/languages/css';
-	import xml from 'highlight.js/lib/languages/xml';
-	import bash from 'highlight.js/lib/languages/bash';
-	import cpp from 'highlight.js/lib/languages/cpp';
-	import json from 'highlight.js/lib/languages/json';
-	import rust from 'highlight.js/lib/languages/rust';
-	import go from 'highlight.js/lib/languages/go';
-	import 'highlight.js/styles/github-dark.css';
-
-	hljs.registerLanguage('javascript', javascript);
-	hljs.registerLanguage('js', javascript);
-	hljs.registerLanguage('typescript', typescript);
-	hljs.registerLanguage('ts', typescript);
-	hljs.registerLanguage('python', python);
-	hljs.registerLanguage('py', python);
-	hljs.registerLanguage('css', css);
-	hljs.registerLanguage('html', xml);
-	hljs.registerLanguage('xml', xml);
-	hljs.registerLanguage('bash', bash);
-	hljs.registerLanguage('sh', bash);
-	hljs.registerLanguage('json', json);
-	hljs.registerLanguage('cpp', cpp);
-	hljs.registerLanguage('golang', go);
-	hljs.registerLanguage('go', go);
-	hljs.registerLanguage('rust', rust);
 
 	let { content = '' } = $props();
 	let sanitizedHtml = $state('');
@@ -38,17 +9,7 @@
 
 	marked.setOptions({
 		gfm: true,
-		breaks: true,
-		highlight: function (code: string, lang: string) {
-			if (lang && hljs.getLanguage(lang)) {
-				try {
-					return hljs.highlight(code, { language: lang }).value;
-				} catch (e) {
-					console.error('Highlight error:', e);
-				}
-			}
-			return code;
-		}
+		breaks: true
 	});
 
 	const purifyConfig = {
@@ -69,27 +30,9 @@
 		}
 	}
 
-	function ensureHighlighting() {
-		if (!markdownElement) return;
-
-		const codeBlocks = markdownElement.querySelectorAll('pre code');
-		codeBlocks.forEach((block: Element) => {
-			// Only process blocks that haven't been highlighted yet
-			if (!block.classList.contains('hljs')) {
-				hljs.highlightElement(block as HTMLElement);
-			}
-		});
-	}
-
 	$effect(() => {
 		if (content) {
 			renderMarkdown();
-		}
-	});
-
-	$effect(() => {
-		if (sanitizedHtml) {
-			setTimeout(ensureHighlighting, 0);
 		}
 	});
 
@@ -133,15 +76,54 @@
 		border-radius: 0;
 	}
 
-	.markdown :global(a) {
-		color: #1a7afa;
-		text-decoration: underline;
+	.markdown :global(p) {
+		margin-top: 1em;
+		margin-bottom: 1em;
 	}
 
+	/* Enhanced list styling */
 	.markdown :global(ul),
 	.markdown :global(ol) {
 		padding-left: 1.5em;
-		margin: 1em 0;
+		margin: 1.25em 0;
+	}
+
+	.markdown :global(ul) {
+		list-style-type: disc;
+	}
+
+	.markdown :global(ul ul) {
+		list-style-type: circle;
+	}
+
+	.markdown :global(ul ul ul) {
+		list-style-type: square;
+	}
+
+	.markdown :global(ol) {
+		list-style-type: decimal;
+	}
+
+	.markdown :global(ol ol) {
+		list-style-type: lower-alpha;
+	}
+
+	.markdown :global(ol ol ol) {
+		list-style-type: lower-roman;
+	}
+
+	.markdown :global(li) {
+		margin-bottom: 0.5em;
+	}
+
+	.markdown :global(li > p) {
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+	}
+
+	.markdown :global(a) {
+		color: #1a7afa;
+		text-decoration: underline;
 	}
 
 	.markdown :global(blockquote) {
