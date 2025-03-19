@@ -7,7 +7,12 @@
 	let isThinking = $derived(role === 'assistant' && (!content || content.trim() === ''));
 </script>
 
-<div class={cn(role === 'user' ? 'justify-end' : 'justify-start', 'flex w-full', 'my-4')}>
+<div
+	class={cn(
+		role === 'user' ? 'justify-end' : 'justify-start',
+		'max-w-screen my-4 flex w-full text-wrap'
+	)}
+>
 	<div class={cn(role === 'user' ? 'text-right' : 'text-left', 'mb-4 flex max-w-3xl space-x-2')}>
 		{#if role === 'system' || role === 'assistant'}
 			<div class="flex size-10 items-center justify-center rounded-lg bg-violet-400 p-2.5">
