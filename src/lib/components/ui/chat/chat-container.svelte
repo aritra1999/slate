@@ -13,7 +13,7 @@
 <div class="container flex h-full flex-col overflow-hidden">
 	{#if selectedChat}
 		<div class="flex-none border-b px-4 pb-4">
-			<h2 class="text-xl font-semibold">{selectedChat.title}</h2>
+			<h2 class="ml-6 text-xl font-semibold">{selectedChat.title}</h2>
 		</div>
 		<MessageContainer />
 		<ChatForm />
