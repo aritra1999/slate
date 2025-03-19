@@ -51,33 +51,20 @@ export async function communicateToOllamaModel(
 			if (done) break;
 
 			const chunk = decoder.decode(value, { stream: true });
-			const lines = chunk.split('\n').filter((line) => line.trim() !== '');
-
-			for (const line of lines) {
+			for (const line of chunk.split('\n').filter(Boolean)) {
 				try {
 					const parsed = JSON.parse(line);
-
-					if (parsed.message && parsed.message.content) {
-						const newContentChunk = parsed.message.content;
-
-						fullContent += newContentChunk;
-
-						if (onUpdate) {
-							onUpdate(fullContent);
-						}
+					if (parsed.message?.content) {
+						fullContent += parsed.message.content;
+						onUpdate?.(fullContent);
 					}
 				} catch (e) {
-					console.error('Error parsing JSON from stream:', e);
+					console.error('Error parsing JSON:', e);
 				}
 			}
 		}
 
-		const assistantMessage: Message = {
-			role: 'assistant',
-			content: fullContent
-		};
-
-		return ok(assistantMessage);
+		return ok({ role: 'assistant', content: fullContent });
 	} catch (error) {
 		return err(error);
 	}
