@@ -13,16 +13,26 @@
 		<Logo />
 	</Sidebar.Header>
 	<Sidebar.Separator class="mb-4" />
-	<Sidebar.Content>
-		<Sidebar.Group>
+	<Sidebar.Content class="h-full">
+		<Sidebar.Group class="h-2/3">
 			<Sidebar.Menu>
 				<SidebarChat />
-				<Sidebar.Separator class="mb-4" />
+			</Sidebar.Menu>
+		</Sidebar.Group>
+		<Sidebar.Separator class="mb-4" />
+		<Sidebar.Group class="h-1/3">
+			<Sidebar.Menu>
 				<SidebarModels />
 			</Sidebar.Menu>
 		</Sidebar.Group>
 	</Sidebar.Content>
 	<Sidebar.Footer>
+		<a
+			class="mb-2 rounded-2xl bg-violet-700 bg-opacity-10 px-6 py-4 text-violet-400 no-underline"
+			target="_blank"
+			href="/feedback">Got feedback?</a
+		>
+
 		<div class="flex items-center space-x-4">
 			<Button variant="secondary" class="w-full">
 				<Bolt class="mr-2" />
