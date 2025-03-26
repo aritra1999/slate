@@ -7,7 +7,6 @@
 	import ModelDetails from '$lib/components/ui/model-details/model-details.svelte';
 	import { toast } from 'svelte-sonner';
 	import type { Chat, Message } from '$lib/types';
-	import { IsMobile } from '$lib/hooks/is-mobile.svelte';
 
 	let input = $state('');
 	let isLoading = $state(false);
@@ -115,8 +114,6 @@
 			}
 		}
 	}
-
-	// Remove the $effect since disableSend is already a $derived value
 
 	function handleKeydown(e: KeyboardEvent) {
 		if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
