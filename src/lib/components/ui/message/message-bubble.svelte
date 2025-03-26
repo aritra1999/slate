@@ -10,7 +10,7 @@
 <div
 	class={cn(
 		role === 'user' ? 'justify-end' : 'justify-start',
-		'max-w-screen my-4 flex w-full text-wrap'
+		'max-w-screen my-4 flex w-full overflow-x-auto text-wrap'
 	)}
 >
 	<div class={cn(role === 'user' ? 'text-right' : 'text-left', 'mb-4 flex max-w-3xl space-x-2')}>

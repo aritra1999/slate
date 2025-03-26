@@ -144,9 +144,8 @@
 				<ChatAttachment />
 			</div>
 			<div class="flex items-center">
-				{#if !IsMobile}
-					<span class="mr-2 text-xs text-muted-foreground">Ctrl+Enter to send</span>
-				{/if}
+				<span class="mr-2 hidden text-xs text-muted-foreground sm:block">Ctrl+Enter to send</span>
+
 				<Button class="rounded-sm rounded-br-2xl" size="icon" type="submit" disabled={disableSend}>
 					<Send />
 				</Button>
