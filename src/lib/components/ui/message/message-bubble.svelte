@@ -22,7 +22,7 @@
 		<div
 			class={cn(
 				'w-full ',
-				role === 'user' ? 'rounded-2xl rounded-tr-sm bg-accent p-6' : 'px-4',
+				role === 'user' ? 'rounded-2xl rounded-tr-sm bg-accent px-6 py-4' : 'px-4',
 				className
 			)}
 		>
@@ -32,9 +32,7 @@
 					<span>Thinking...</span>
 				</div>
 			{:else if role === 'assistant'}
-				<div class="py-2.5">
-					<Markdown {content} />
-				</div>
+				<Markdown {content} />
 			{:else}
 				<div class="whitespace-pre-wrap">{content}</div>
 			{/if}
