@@ -7,7 +7,12 @@
 	let isThinking = $derived(role === 'assistant' && (!content || content.trim() === ''));
 </script>
 
-<div class={cn(role === 'user' ? 'justify-end' : 'justify-start', 'flex w-full', 'my-4')}>
+<div
+	class={cn(
+		role === 'user' ? 'justify-end' : 'justify-start',
+		'max-w-screen my-4 flex w-full overflow-x-auto text-wrap'
+	)}
+>
 	<div class={cn(role === 'user' ? 'text-right' : 'text-left', 'mb-4 flex max-w-3xl space-x-2')}>
 		{#if role === 'system' || role === 'assistant'}
 			<div class="flex size-10 items-center justify-center rounded-lg bg-violet-400 p-2.5">
@@ -17,7 +22,7 @@
 		<div
 			class={cn(
 				'w-full ',
-				role === 'user' ? 'rounded-2xl rounded-tr-sm bg-accent p-6' : 'px-4',
+				role === 'user' ? 'rounded-2xl rounded-tr-sm bg-accent px-6 py-4' : 'px-4',
 				className
 			)}
 		>
@@ -27,9 +32,7 @@
 					<span>Thinking...</span>
 				</div>
 			{:else if role === 'assistant'}
-				<div class="py-2.5">
-					<Markdown {content} />
-				</div>
+				<Markdown {content} />
 			{:else}
 				<div class="whitespace-pre-wrap">{content}</div>
 			{/if}

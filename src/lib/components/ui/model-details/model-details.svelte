@@ -3,6 +3,8 @@
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { cn } from '$lib/utils';
 	import type { Message } from '$lib/types';
+	import { IsMobile } from '$lib/hooks/is-mobile.svelte';
+	import { Info } from 'lucide-svelte';
 
 	let { selectedChat } = $props();
 </script>
@@ -14,9 +16,13 @@
 	)}
 	<Popover.Root>
 		<Popover.Trigger
-			class={cn(buttonVariants({ variant: 'accent' }), 'rounded-sm rounded-bl-2xl px-4')}
+			class={cn(buttonVariants({ variant: 'accent' }), 'rounded-sm rounded-bl-2xl px-3')}
 		>
-			{model.title} - {model.name}, {model.temperature}
+			{#if IsMobile}
+				<Info class="size-5" />
+			{:else}
+				{model.title} - {model.name}, {model.temperature}
+			{/if}
 		</Popover.Trigger>
 		<Popover.Content class="w-80 text-sm">
 			<ul>

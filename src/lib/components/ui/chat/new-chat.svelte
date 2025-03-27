@@ -205,7 +205,8 @@
 							<p class="text-sm text-red-500">{formErrors.systemPrompt}</p>
 						{/if}
 					</div>
-					<div class="flex items-center space-x-2">
+					<!-- TODO: Add support for customizing the model response -->
+					<div class="flex hidden items-center space-x-2">
 						<Checkbox
 							id="stream"
 							checked={formData.stream}
