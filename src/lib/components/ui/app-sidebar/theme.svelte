@@ -6,7 +6,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
-<Button onclick={toggleMode} variant="secondary" class="px-4" size="icon">
+<Button onclick={toggleMode} variant="secondary" size="icon" class="rounded-lg">
 	{#if $mode === 'light'}
 		<Sun class="h-[1.2rem] w-[1.2rem]" />
 	{:else}
