@@ -11,7 +11,7 @@
 
 {#if current}
 	<div class="group relative h-full w-full">
-		<img src={current} class="h-full w-full rounded-lg object-cover" alt="" />
+		<img src={current} class="h-full w-full rounded-lg object-cover" alt={images.title || 'Page illustration'} />
 		{#if images.description}
 			<div
 				class="absolute bottom-2 right-2 rounded-lg bg-foreground px-4 py-2 text-right font-medium text-background opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:px-6 sm:py-4"
