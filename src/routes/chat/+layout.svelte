@@ -6,6 +6,8 @@
 	import { chatStore, selectedChatStore } from '$lib/store/chat.store';
 
 	let { children } = $props();
+import type { Chat } from '$lib/types';
+
 	let selectedChat = $derived<Chat | undefined>(
 		$selectedChatStore ? $chatStore.get($selectedChatStore) : undefined
 	);
