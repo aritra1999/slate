@@ -4,12 +4,15 @@
 	import { modelStore } from '$lib/store/model.store';
 	import { buttonVariants } from '../button/button.svelte';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
+	import posthog from 'posthog-js';
+	import { browser } from '$app/environment';
 
 	let { model }: { model: Model } = $props();
 	let open = $state(false);
 
 	async function deleteModel() {
 		modelStore.update((models: Model[]) => models.filter((m) => m.id !== model.id));
+		if (browser) posthog.capture('model_deleted');
 		open = false;
 	}
 </script>
