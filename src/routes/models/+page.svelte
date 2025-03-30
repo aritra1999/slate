@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="test">
 	import { cn } from '$lib/utils';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { modelStore } from '$lib/store/model.store';
@@ -9,7 +9,7 @@
 </script>
 
 <div class="container py-20">
-	<div class="items-center mb-10 flex justify-between">
+	<div class="itemx-center mb-10 flex justify-between">
 		<h1 class="text-xl font-semibold">Models</h1>
 		<NewModel>
 			<Dialog.Trigger
@@ -24,17 +24,17 @@
 		{#if $modelStore.length > 0}
 			<div class="grid gap-4 sm:grid-cols-3">
 				{#each $modelStore as model}
-					<div class="w-full rounded-xl border-2 p-4 hover:border-foreground">
+					<div class="w-full rounded-xl bg-secondary p-4">
 						<div class="mb-3 flex items-center justify-between text-lg">
 							{model.title}
 							<DeleteModelModal {model} />
 						</div>
 						<div class="flex gap-2">
-							<div class="flex w-fit items-center rounded-sm bg-secondary px-3 py-1">
+							<div class="flex w-fit items-center rounded-sm bg-violet-300 px-3 py-1">
 								<BotMessageSquare class="mr-3 size-4" />
 								{model.name}
 							</div>
-							<div class="flex w-fit items-center rounded-sm bg-secondary px-3 py-1">
+							<div class="flex w-fit items-center rounded-sm bg-violet-300 px-3 py-1">
 								<Thermometer class="mr-2 size-4" />
 								{model.temperature}
 							</div>
