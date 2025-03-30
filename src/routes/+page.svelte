@@ -5,11 +5,8 @@
 	import BentoItem from '$lib/components/ui/special/bento-item.svelte';
 	import SparklesText from '$lib/components/ui/special/sparkels-text.svelte';
 	import Bot from 'lucide-svelte/icons/bot';
-
 	import Lock from 'lucide-svelte/icons/lock';
-
 	import MessageSquare from 'lucide-svelte/icons/message-square';
-
 	import LogoIcon from '$lib/components/ui/logo/logo-icon.svelte';
 	import { Button } from '$lib/components/ui/button';
 	import DynamicImage from '$lib/components/ui/special/dynamic-image.svelte';
@@ -17,8 +14,8 @@
 	import Banana from 'lucide-svelte/icons/banana';
 
 	const thumbnail = {
-		light: 'https://ucarecdn.com/25a7ef27-2fc3-4bbd-82b5-5cc975117891/-/preview/1000x628/',
-		dark: 'https://ucarecdn.com/cddee9ea-0f1b-4a1f-a4f2-163522a0d7ab/-/preview/1000x628/'
+		light: 'https://ucarecdn.com/554d9dfb-a777-40d3-b7d8-c82c4a11a60a/-/preview/1000x583/',
+		dark: 'https://ucarecdn.com/86430c0c-ddcd-40bd-8f3e-a6ece158c7e1/-/preview/1000x583/'
 	};
 
 	const features = [
