@@ -7,6 +7,8 @@
 	import ModelDetails from '$lib/components/ui/model-details/model-details.svelte';
 	import { toast } from 'svelte-sonner';
 	import type { Chat, Message } from '$lib/types';
+	import posthog from 'posthog-js';
+	import { browser } from '$app/environment';
 
 	let input = $state('');
 	let isLoading = $state(false);
@@ -68,6 +70,10 @@
 			}
 			return chats;
 		});
+
+		if (browser) {
+			posthog.capture('message_sent');
+		}
 
 		input = '';
 		const currentChat = chatStore.getChat($selectedChatStore);
