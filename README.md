@@ -1,4 +1,7 @@
 # slate
+<img width="956" alt="slate" src="https://github.com/user-attachments/assets/eb13e0a6-1b0c-4bc1-a6ab-4012965bb3a8" />
+
+
 One UI for hosting communicating to all LLMs. Our UI, your LLM. 
 - No more complex docker setups to communicate to ollama running locally or remotely. 
 - Bring your own API tokens and pay for what you use
