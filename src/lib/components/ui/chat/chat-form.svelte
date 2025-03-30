@@ -126,7 +126,7 @@
 </script>
 
 <div class="flex-none py-4">
-	<form class="rounded-3xl border-2 bg-sidebar p-2" onsubmit={chat}>
+	<form class="rounded-3xl bg-secondary p-3" onsubmit={chat}>
 		<textarea
 			bind:value={input}
 			onkeydown={handleKeydown}
