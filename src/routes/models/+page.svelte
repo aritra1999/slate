@@ -9,7 +9,7 @@
 </script>
 
 <div class="container py-20">
-	<div class="itemx-center mb-10 flex justify-between">
+	<div class="items-center mb-10 flex justify-between">
 		<h1 class="text-xl font-semibold">Models</h1>
 		<NewModel>
 			<Dialog.Trigger
