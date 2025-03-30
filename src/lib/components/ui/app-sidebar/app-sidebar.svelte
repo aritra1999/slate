@@ -12,24 +12,26 @@
 		<Logo />
 	</Sidebar.Header>
 	<Sidebar.Content>
-		<div>
-			<Sidebar.Group>
-				<SidebarChat />
-			</Sidebar.Group>
-		</div>
+		<Sidebar.Group>
+			<SidebarChat />
+		</Sidebar.Group>
 	</Sidebar.Content>
 	<Sidebar.Footer>
 		<a
-			class="mb-2 rounded-2xl bg-violet-700 bg-opacity-10 px-6 py-4 text-violet-400 no-underline"
+			class="mb-0.5 rounded-lg bg-violet-700 bg-opacity-10 px-6 py-4 text-violet-500 no-underline"
 			target="_blank"
 			href="/feedback">Got feedback?</a
 		>
-		<div class="flex items-center space-x-4">
-			<Button variant="secondary" class="w-full">
-				<Bolt class="mr-2" />
-				Settings
+		<div class="flex items-center space-x-2">
+			<Button variant="secondary" href="/models" class="w-full rounded-lg no-underline">
+				Models
 			</Button>
-			<Theme />
+			<div class="flex">
+				<Button variant="secondary" size="icon" class="mr-2 rounded-lg">
+					<Bolt />
+				</Button>
+				<Theme />
+			</div>
 		</div>
 	</Sidebar.Footer>
 </Sidebar.Root>
