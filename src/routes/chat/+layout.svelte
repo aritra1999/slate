@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Chat } from '$lib/types';
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import AppSidebar from '$lib/components/ui/app-sidebar/app-sidebar.svelte';
@@ -6,7 +7,6 @@
 	import { chatStore, selectedChatStore } from '$lib/store/chat.store';
 
 	let { children } = $props();
-import type { Chat } from '$lib/types';
 
 	let selectedChat = $derived<Chat | undefined>(
 		$selectedChatStore ? $chatStore.get($selectedChatStore) : undefined
