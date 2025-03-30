@@ -24,12 +24,12 @@
 		{#if $modelStore.length > 0}
 			<div class="grid gap-4 sm:grid-cols-3">
 				{#each $modelStore as model}
-					<div class="w-full rounded-xl border-2 p-4 hover:border-slate-100">
+					<div class="w-full rounded-xl border-2 p-4 hover:border-foreground">
 						<div class="mb-3 flex items-center justify-between text-lg">
 							{model.title}
 							<DeleteModelModal {model} />
 						</div>
-						<div class="flex gap-3">
+						<div class="flex gap-2">
 							<div class="flex w-fit items-center rounded-sm bg-secondary px-3 py-1">
 								<BotMessageSquare class="mr-3 size-4" />
 								{model.name}
