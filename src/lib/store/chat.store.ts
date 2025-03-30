@@ -1,6 +1,7 @@
 import type { Chat } from '$lib/types';
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
+import posthog from 'posthog-js';
 
 const storedChats = browser ? localStorage.getItem('chats') : null;
 
@@ -19,6 +20,7 @@ export const chatStore = {
 	set(value: Map<string, Chat>) {
 		if (browser) {
 			localStorage.setItem('chats', JSON.stringify(Object.fromEntries(value)));
+			posthog.capture('chat_created');
 		}
 		chats.set(value);
 	},
@@ -31,7 +33,6 @@ export const chatStore = {
 			return updated;
 		});
 	},
-	// Simplified methods
 	getChat(id: string) {
 		let chat;
 		chats.subscribe((map) => {

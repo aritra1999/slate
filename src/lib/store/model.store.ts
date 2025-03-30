@@ -1,5 +1,6 @@
 import type { Model } from '$lib/types';
 import { writable } from 'svelte/store';
+import posthog from 'posthog-js';
 import { browser } from '$app/environment';
 
 const storedModels = browser ? localStorage.getItem('models') : null;
@@ -11,6 +12,7 @@ export const modelStore = {
 	subscribe: store.subscribe,
 	set: (value: Model[]) => {
 		localStorage.setItem('models', JSON.stringify(value));
+		posthog.capture('model_created');
 		store.set(value);
 	},
 	update: (updater: (value: Model[]) => Model[]) => {
