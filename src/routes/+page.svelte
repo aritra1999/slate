@@ -5,7 +5,6 @@
 	import BentoItem from '$lib/components/ui/special/bento-item.svelte';
 	import SparklesText from '$lib/components/ui/special/sparkels-text.svelte';
 	import Bot from 'lucide-svelte/icons/bot';
-	import BotMessageSquare from 'lucide-svelte/icons/bot-message-square';
 
 	import Lock from 'lucide-svelte/icons/lock';
 
