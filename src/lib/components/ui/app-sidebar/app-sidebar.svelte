@@ -1,16 +1,32 @@
 <script lang="ts">
-	import { Bolt } from 'lucide-svelte';
+	import type { ComponentProps } from 'svelte';
+	import { MessageSquare, Bolt } from 'lucide-svelte';
 	import { Button } from '$lib/components/ui/button';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import Logo from '$lib/components/ui/logo/logo.svelte';
 	import Theme from '$lib/components/ui/app-sidebar/theme.svelte';
 	import SidebarChat from '$lib/components/ui/app-sidebar/sidebar-chats.svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { buttonVariants } from '$lib/components/ui/button/index.js';
+	import NewChat from '$lib/components/ui/chat/new-chat.svelte';
+	import { cn } from '$lib/utils';
+
+	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
-<Sidebar.Root>
-	<Sidebar.Header class="justify-between">
+<Sidebar.Root bind:ref {...restProps}>
+	<Sidebar.Header class="flex items-center justify-between border-b">
 		<Logo />
+		<NewChat>
+			<Dialog.Trigger
+				class={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
+				aria-label="Start new chat"
+			>
+				<MessageSquare />
+			</Dialog.Trigger>
+		</NewChat>
 	</Sidebar.Header>
+
 	<Sidebar.Content>
 		<Sidebar.Group>
 			<SidebarChat />
@@ -34,4 +50,5 @@
 			</div>
 		</div>
 	</Sidebar.Footer>
+	<Sidebar.Rail />
 </Sidebar.Root>
