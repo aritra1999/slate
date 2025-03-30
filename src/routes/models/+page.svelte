@@ -1,4 +1,4 @@
-<script lang="test">
+<script lang="ts">
 	import { cn } from '$lib/utils';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { modelStore } from '$lib/store/model.store';
