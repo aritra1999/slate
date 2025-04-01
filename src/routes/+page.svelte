@@ -45,6 +45,29 @@
 	];
 </script>
 
+<svelte:head>
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "SoftwareApplication",
+			"name": "Slate",
+			"applicationCategory": "AIApplication",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "USD"
+			},
+			"operatingSystem": "Web",
+			"description": "An open source UI for interacting with AI language models locally, self-hosted, or in the cloud.",
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "4.8",
+				"ratingCount": "52"
+			}
+		}
+	</script>
+</svelte:head>
+
 <main class="container mx-auto py-10 sm:py-24">
 	<BentoGrid className="mb-4">
 		<BentoItem className="col-span-1 sm:col-span-2 lg:col-span-1 sm:row-span-1 p-6">
