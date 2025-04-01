@@ -51,11 +51,12 @@
 			<div class="flex items-center gap-3">
 				<LogoIcon />
 				<SparklesText text="slate" />
+				<h1 class="sr-only">Slate: Open Source UI for Local, Self-hosted and Cloud LLMs</h1>
 			</div>
 			<p class="mb-10 text-base text-muted-foreground">
-				Our open source UI, your models.
+				The ultimate open source UI for interacting with AI language models.
 				<br />
-				Local, self-hosted and cloud llms.
+				Connect to local, self-hosted or cloud-based LLMs with privacy and control.
 			</p>
 			<div>
 				<Button variant="accent" size="lg" href="/chat" class="mr-2 rounded-lg px-6 no-underline">
