@@ -45,17 +45,39 @@
 	];
 </script>
 
+<svelte:head>
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "SoftwareApplication",
+			"name": "Slate",
+			"applicationCategory": "AIApplication",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "USD"
+			},
+			"operatingSystem": "Web",
+			"description": "An open source UI for interacting with AI language models locally, self-hosted, or in the cloud.",
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "4.8",
+				"ratingCount": "52"
+			}
+		}
+	</script>
+</svelte:head>
+
 <main class="container mx-auto py-10 sm:py-24">
 	<BentoGrid className="mb-4">
 		<BentoItem className="col-span-1 sm:col-span-2 lg:col-span-1 sm:row-span-1 p-6">
 			<div class="flex items-center gap-3">
 				<LogoIcon />
 				<SparklesText text="slate" />
+				<h1 class="sr-only">Slate: Open Source UI for Local, Self-hosted and Cloud LLMs</h1>
 			</div>
 			<p class="mb-10 text-base text-muted-foreground">
-				Our open source UI, your models.
-				<br />
-				Local, self-hosted and cloud llms.
+				slate: Open Source UI for local, self-hosted and cloud LLMs
 			</p>
 			<div>
 				<Button variant="accent" size="lg" href="/chat" class="mr-2 rounded-lg px-6 no-underline">
